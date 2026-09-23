@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>404 — Dungeon Fate</title>
+  <meta name="description" content="页面不存在 — Dungeon Fate。">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <style>
+    :root {
+      --bg: #0B0D13;
+      --panel: #141A2A;
+      --ink: #EDEBE3;
+      --muted: #A3A9BD;
+      --gold: #D9A845;
+      --gold-hi: #EDBE62;
+      --line: rgba(237, 235, 227, .11);
+      --sans: "Microsoft YaHei", "PingFang SC", "Noto Sans SC", system-ui, sans-serif;
+      --serif: "Noto Serif SC", "Songti SC", Georgia, serif;
+      --mono: Consolas, "JetBrains Mono", "Microsoft YaHei", monospace;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: var(--sans); color: var(--ink); background: var(--bg); line-height: 1.7; min-height: 100dvh; display: grid; place-items: center; padding: 24px; }
+    .card { text-align: center; max-width: 560px; background: var(--panel); border: 1px solid var(--line); border-radius: 22px; padding: 64px 40px; box-shadow: 0 24px 60px -24px rgba(2, 4, 10, .8); }
+    .code { font-family: var(--serif); font-size: 4.2rem; font-weight: 900; color: var(--gold-hi); line-height: 1; margin-bottom: 10px; }
+    .latin { font-family: var(--mono); font-size: .75rem; letter-spacing: .4em; color: var(--muted); margin-bottom: 22px; }
+    h1 { font-family: var(--serif); font-size: 1.5rem; margin-bottom: 10px; }
+    p { color: var(--muted); font-size: .95rem; margin-bottom: 30px; }
+    .btn { display: inline-flex; align-items: center; gap: 10px; padding: 13px 30px; border-radius: 12px; background: var(--gold); color: #201503; font-weight: 700; text-decoration: none; transition: transform .18s ease, background .18s ease; }
+    .btn:hover { transform: translateY(-2px); background: var(--gold-hi); }
+    .btn:active { transform: scale(.98); }
+    .lang { position: fixed; top: 16px; right: 16px; background: var(--panel); color: var(--ink); border: 1px solid var(--line); border-radius: 10px; padding: 9px 17px; font: inherit; font-weight: 700; cursor: pointer; }
+  </style>
+</head>
+<body>
+  <button id="langToggle" class="lang" type="button">EN</button>
+  <div class="card">
+    <div class="code">404</div>
+    <div class="latin">DUNGEON FATE</div>
+    <h1 data-i18n="df-404.title">这条地道走不通</h1>
+    <p data-i18n="df-404.desc">你要找的页面不存在或已被移动。回大厅重新出发吧。</p>
+    <a class="btn" href="index.html" data-i18n="df-404.back">← 返回首页</a>
+  </div>
+  <script>
+    (function () {
+      var DICT = {
+        zh: {
+          "df-404.title": "这条地道走不通",
+          "df-404.desc": "你要找的页面不存在或已被移动。回大厅重新出发吧。",
+          "df-404.back": "← 返回首页"
+        },
+        en: {
+          "df-404.title": "This passage leads nowhere",
+          "df-404.desc": "The page you're looking for doesn't exist or has moved. Head back to the lobby.",
+          "df-404.back": "← Back to home"
+        }
+      };
+      function detectLang() {
+        var saved = null;
+        try { saved = localStorage.getItem("df-lang"); } catch (e) {}
+        if (saved === "zh" || saved === "en") return saved;
+        var nav = (navigator.languages && navigator.languages[0]) || navigator.language || "";
+        return /^zh/i.test(nav) ? "zh" : "en";
+      }
+      function applyLang(lang) {
+        var dict = DICT[lang];
+        document.documentElement.lang = lang === "zh" ? "zh-CN" : "en";
+        var nodes = document.querySelectorAll("[data-i18n]");
+        for (var i = 0; i < nodes.length; i++) {
+          var key = nodes[i].getAttribute("data-i18n");
+          if (dict[key] !== undefined) nodes[i].textContent = dict[key];
+        }
+        var toggle = document.getElementById("langToggle");
+        toggle.textContent = lang === "zh" ? "EN" : "中文";
+      }
+      var current = detectLang();
+      applyLang(current);
+      document.getElementById("langToggle").addEventListener("click", function () {
+        current = current === "zh" ? "en" : "zh";
+        try { localStorage.setItem("df-lang", current); } catch (e) {}
+        applyLang(current);
+      });
+    })();
+  </script>
+</body>
+</html>
