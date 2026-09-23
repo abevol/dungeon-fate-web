@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>服务条款 / Terms — Dungeon Fate</title>
+  <meta name="description" content="Dungeon Fate 服务条款：本页与模组按现状提供。">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <style>
+    :root {
+      --bg: #0B0E17;
+      --panel: #141827;
+      --ink: #E8EAF2;
+      --accent: #7CFC6A;
+      --accent2: #B388FF;
+      --danger: #FF5470;
+      --muted: #9AA0B5;
+      --border: 3px solid #000;
+      --shadow: 6px 6px 0 #000;
+      --title-font: Consolas, "Courier New", "Microsoft YaHei", monospace;
+      --font: "Microsoft YaHei", "PingFang SC", "Noto Sans SC", Consolas, system-ui, sans-serif;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: var(--font); color: var(--ink); background: var(--bg); line-height: 1.8; }
+    .wrap { max-width: 760px; margin: 0 auto; padding: 48px 24px; }
+    h1 { font-family: var(--title-font); color: var(--accent); margin-bottom: 24px; }
+    .card { background: var(--panel); border: var(--border); box-shadow: var(--shadow); padding: 28px; }
+    .card p { margin-bottom: 14px; }
+    .back { display: inline-block; margin-top: 24px; color: var(--accent); font-weight: 700; }
+    .lang { position: fixed; top: 16px; right: 16px; background: var(--panel); color: var(--ink); border: var(--border); padding: 8px 16px; font: inherit; font-weight: 700; cursor: pointer; }
+  </style>
+</head>
+<body>
+  <button id="langToggle" class="lang" type="button">EN</button>
+  <div class="wrap">
+    <h1 data-i18n="df-terms.title">服务条款 / Terms</h1>
+    <div class="card">
+      <p data-i18n="df-terms.p1">Dungeon Fate 为独立软件，与《地下城竞技场》开发者无关联，仅支持 Steam 正版游戏使用。</p>
+      <p data-i18n="df-terms.p2">本模组与本页面按现状提供，不收集用户数据；安装器仅访问 BepInEx 官方地址与 GitHub Release 公开地址下载文件。</p>
+      <p data-i18n="df-terms.p3">使用中遇到问题或对条款有疑问，请联系 abevol@pm.me。</p>
+    </div>
+    <a class="back" href="index.html" data-i18n="df-terms.back">← 返回首页</a>
+  </div>
+  <script>
+    (function () {
+      var DICT = {
+        zh: {
+          "df-terms.title": "服务条款 / Terms",
+          "df-terms.p1": "Dungeon Fate 为独立软件，与《地下城竞技场》开发者无关联，仅支持 Steam 正版游戏使用。",
+          "df-terms.p2": "本模组与本页面按现状提供，不收集用户数据；安装器仅访问 BepInEx 官方地址与 GitHub Release 公开地址下载文件。",
+          "df-terms.p3": "使用中遇到问题或对条款有疑问，请联系 abevol@pm.me。",
+          "df-terms.back": "← 返回首页"
+        },
+        en: {
+          "df-terms.title": "Terms",
+          "df-terms.p1": "Dungeon Fate is independent software, not affiliated with the Dungeon Brawl developers, and supports only legitimate Steam copies.",
+          "df-terms.p2": "This mod and this page are provided as-is and collect no user data; the installer only downloads files from the official BepInEx address and public GitHub Release URLs.",
+          "df-terms.p3": "If you run into issues or have questions about these terms, contact abevol@pm.me.",
+          "df-terms.back": "← Back to home"
+        }
+      };
+      function detectLang() {
+        var saved = null;
+        try { saved = localStorage.getItem("df-lang"); } catch (e) {}
+        if (saved === "zh" || saved === "en") return saved;
+        var nav = (navigator.languages && navigator.languages[0]) || navigator.language || "";
+        return /^zh/i.test(nav) ? "zh" : "en";
+      }
+      function applyLang(lang) {
+        var dict = DICT[lang];
+        document.documentElement.lang = lang === "zh" ? "zh-CN" : "en";
+        var nodes = document.querySelectorAll("[data-i18n]");
+        for (var i = 0; i < nodes.length; i++) {
+          var key = nodes[i].getAttribute("data-i18n");
+          if (dict[key] !== undefined) nodes[i].textContent = dict[key];
+        }
+        var toggle = document.getElementById("langToggle");
+        toggle.textContent = lang === "zh" ? "EN" : "中文";
+      }
+      var current = detectLang();
+      applyLang(current);
+      document.getElementById("langToggle").addEventListener("click", function () {
+        current = current === "zh" ? "en" : "zh";
+        try { localStorage.setItem("df-lang", current); } catch (e) {}
+        applyLang(current);
+      });
+    })();
+  </script>
+</body>
+</html>

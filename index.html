@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dungeon Fate 地下城命运重掷 — 《地下城竞技场》体验增强模组</title>
+  <meta name="description" content="《地下城竞技场》(Dungeon Brawl) 的体验增强模组：弹窗中按 F5 重掷选项，关键字加品质过滤，一个安装器全搞定。">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <style>
+    :root {
+      --bg: #0B0E17;
+      --panel: #141827;
+      --ink: #E8EAF2;
+      --accent: #7CFC6A;
+      --accent2: #B388FF;
+      --danger: #FF5470;
+      --muted: #9AA0B5;
+      --border: 3px solid #000;
+      --shadow: 6px 6px 0 #000;
+      --shadow-sm: 4px 4px 0 #000;
+      --title-font: Consolas, "Courier New", "Microsoft YaHei", monospace;
+      --font: "Microsoft YaHei", "PingFang SC", "Noto Sans SC", Consolas, system-ui, sans-serif;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font);
+      color: var(--ink);
+      background: var(--bg);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; }
+    .wrap { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+    h1, h2, h3, .brand, .badge, .btn, .step-num, .price { font-family: var(--title-font); }
+
+    /* ===== 按钮 ===== */
+    .btn {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 14px 28px;
+      background: var(--panel);
+      border: var(--border); border-radius: 0;
+      box-shadow: var(--shadow-sm);
+      font: inherit; font-weight: 700; font-size: 1.05rem;
+      color: var(--ink); text-decoration: none; cursor: pointer;
+      transition: transform .12s ease, box-shadow .12s ease;
+      white-space: nowrap;
+    }
+    .btn:hover { transform: translate(2px, 2px); box-shadow: 2px 2px 0 #000; }
+    .btn:active { transform: translate(4px, 4px); box-shadow: 0 0 0 #000; }
+    .btn:focus-visible { outline: 3px dashed var(--accent); outline-offset: 3px; }
+    .btn-primary { background: var(--accent); color: #0B0E17; font-size: 1.15rem; padding: 16px 34px; }
+    .btn-discord { background: #5865f2; color: #fff; }
+    .btn-sm { padding: 8px 16px; font-size: .95rem; box-shadow: 3px 3px 0 #000; }
+    .btn svg { width: 20px; height: 20px; flex: none; }
+    .btn-discord.btn-sm svg { width: 18px; height: 18px; }
+
+    /* ===== 导航 ===== */
+    .nav {
+      position: sticky; top: 12px; z-index: 50;
+      max-width: 1120px; margin: 12px auto 0; padding: 0 24px;
+    }
+    .nav-inner {
+      display: flex; align-items: center; gap: 18px;
+      background: var(--panel);
+      border: var(--border); border-radius: 0;
+      box-shadow: var(--shadow-sm);
+      padding: 10px 18px;
+    }
+    .brand {
+      display: flex; align-items: center; gap: 10px;
+      font-weight: 700; font-size: 1.1rem; text-decoration: none;
+      color: var(--accent);
+    }
+    .brand-mark {
+      width: 34px; height: 34px; flex: none;
+      background: var(--bg); border: var(--border);
+      display: grid; place-items: center;
+      overflow: hidden;
+    }
+    .brand-mark img {
+      width: 100%; height: 100%; display: block;
+      object-fit: cover; image-rendering: pixelated;
+    }
+    .nav-links { display: flex; gap: 20px; margin-left: auto; }
+    .nav-links a { font-weight: 700; text-decoration: none; font-size: .98rem; }
+    .nav-links a:hover { color: var(--accent); text-decoration: underline 3px; text-underline-offset: 5px; }
+    .nav-actions { display: flex; gap: 10px; margin-left: 8px; }
+
+    /* ===== Hero ===== */
+    .hero { text-align: center; padding: 72px 0 40px; position: relative; overflow: hidden; }
+    .badge {
+      display: inline-block;
+      background: var(--panel);
+      color: var(--accent);
+      border: var(--border); border-radius: 0;
+      box-shadow: 3px 3px 0 #000;
+      padding: 7px 20px;
+      font-weight: 700; font-size: .92rem;
+    }
+    .hero-dice { display: flex; justify-content: center; margin: 26px 0 6px; }
+    .hero-dice img { width: 72px; height: 72px; image-rendering: pixelated; }
+    .hero h1 {
+      font-size: clamp(2.6rem, 7.5vw, 5.2rem);
+      font-weight: 700; line-height: 1.05; letter-spacing: -.02em;
+      margin: 6px 0 10px;
+      text-shadow: 4px 4px 0 #000;
+    }
+    .hero-latin {
+      font-weight: 700; font-size: clamp(.9rem, 2vw, 1.15rem);
+      letter-spacing: .35em; text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 22px;
+    }
+    .hero-sub { max-width: 640px; margin: 0 auto 34px; font-size: 1.12rem; color: var(--muted); }
+    .hero-cta { display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; }
+    .hero-note { margin-top: 18px; font-size: .9rem; font-weight: 600; color: var(--muted); }
+    .hero-note b { color: var(--accent); }
+
+    /* ===== 通用 section ===== */
+    .section { padding: 64px 0 84px; border-top: var(--border); }
+    .sec-head { text-align: center; margin-bottom: 48px; }
+    .sec-head h2 {
+      font-size: clamp(1.9rem, 4.5vw, 2.8rem);
+      font-weight: 700; letter-spacing: -.01em;
+      display: inline-block;
+      background: var(--panel);
+      color: var(--accent);
+      border: var(--border); border-radius: 0;
+      box-shadow: var(--shadow-sm);
+      padding: 10px 30px;
+    }
+    .sec-head p { margin-top: 20px; font-weight: 600; font-size: 1.05rem; color: var(--muted); }
+
+    /* ===== 功能卡片 ===== */
+    .features { background: var(--bg); }
+    .grid {
+      display: grid; gap: 28px;
+      grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+    }
+    .card {
+      background: var(--panel);
+      border: var(--border); border-radius: 0;
+      box-shadow: var(--shadow);
+      padding: 26px 24px;
+      transition: transform .12s ease, box-shadow .12s ease;
+    }
+    .card:hover { transform: translate(-3px, -3px); box-shadow: 9px 9px 0 #000; }
+    .card-icon {
+      width: 52px; height: 52px;
+      border: var(--border); border-radius: 0;
+      display: grid; place-items: center; font-size: 26px;
+      margin-bottom: 18px;
+      box-shadow: 3px 3px 0 #000;
+      font-family: var(--font);
+    }
+    .card h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 8px; color: var(--accent); }
+    .card p { font-size: .98rem; color: var(--ink); font-family: var(--font); }
+    .c-green { background: var(--accent); }
+    .c-purple { background: var(--accent2); }
+    .c-red { background: var(--danger); }
+    .c-dark { background: var(--bg); }
+
+    /* ===== 快速开始 ===== */
+    .start { background: #0E1220; }
+    .steps { display: grid; gap: 28px; grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr)); }
+    .step {
+      position: relative;
+      background: var(--panel);
+      border: var(--border); border-radius: 0;
+      box-shadow: var(--shadow);
+      padding: 56px 24px 24px;
+    }
+    .step-num {
+      position: absolute; top: -22px; left: 20px;
+      width: 48px; height: 48px;
+      background: var(--accent); color: #0B0E17;
+      border: var(--border); border-radius: 0;
+      box-shadow: 3px 3px 0 rgba(0,0,0,.6);
+      display: grid; place-items: center;
+      font-weight: 700; font-size: 1.25rem;
+    }
+    .step h3 { font-weight: 700; font-size: 1.15rem; margin-bottom: 6px; }
+    .step p { font-size: .97rem; color: var(--muted); font-family: var(--font); }
+    .start-cta { text-align: center; margin-top: 52px; }
+
+    /* ===== 定价 ===== */
+    .pricing { background: var(--bg); }
+    .price-grid {
+      display: grid; gap: 28px;
+      grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+      max-width: 860px; margin: 0 auto;
+    }
+    .price-card { text-align: left; display: flex; flex-direction: column; }
+    .price-card.featured { background: #16210F; border-color: var(--accent); }
+    .price {
+      font-size: 2rem; font-weight: 700; letter-spacing: -.01em;
+      margin: 6px 0 10px;
+    }
+    .price small { font-size: 1rem; font-weight: 700; color: var(--muted); }
+    .price-list { list-style: none; margin: 14px 0 24px; flex: 1; }
+    .price-list li { font-weight: 600; font-size: .98rem; padding: 6px 0 6px 28px; position: relative; font-family: var(--font); }
+    .price-list li::before { content: "✔"; position: absolute; left: 2px; font-weight: 700; color: var(--accent); }
+    .price-note { font-size: .9rem; font-weight: 700; margin-bottom: 22px; color: var(--muted); font-family: var(--font); }
+    .price-card .btn { align-self: flex-start; }
+
+    /* ===== 社区 CTA ===== */
+    .cta { background: #0E1220; }
+    .cta-card {
+      max-width: 720px; margin: 0 auto;
+      background: var(--panel);
+      border: var(--border); border-radius: 0;
+      box-shadow: var(--shadow);
+      padding: 52px 36px; text-align: center;
+    }
+    .cta-card h2 {
+      font-size: clamp(1.8rem, 4vw, 2.5rem);
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+    .cta-card p { font-weight: 600; margin-bottom: 30px; color: var(--muted); font-family: var(--font); }
+
+    /* ===== 页脚 ===== */
+    footer { background: #060810; border-top: var(--border); padding: 48px 0 40px; }
+    .footer-inner { text-align: center; }
+    .footer-brand { font-weight: 700; font-size: 1.3rem; letter-spacing: .05em; margin-bottom: 16px; color: var(--accent); }
+    .footer-disclaimer { max-width: 620px; margin: 0 auto 18px; font-size: .88rem; color: var(--muted); font-family: var(--font); }
+    .footer-links { display: flex; justify-content: center; gap: 24px; flex-wrap: wrap; margin-bottom: 22px; }
+    .footer-links a { color: var(--ink); font-weight: 700; text-underline-offset: 4px; }
+    .footer-copy { font-size: .85rem; color: #5A6076; }
+
+    @media (max-width: 720px) {
+      .nav-links, .nav-actions .btn-discord { display: none; }
+      .nav-inner { flex-wrap: wrap; gap: 10px; }
+      .brand { font-size: 1rem; }
+      .hero { padding-top: 52px; }
+      .hero-cta .btn { width: 100%; justify-content: center; }
+      .section { padding: 52px 0 64px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="nav">
+    <div class="nav-inner">
+      <a class="brand" href="#">
+        <span class="brand-mark"><img src="favicon.svg" alt=""></span>
+        <span data-i18n="df-brand">Dungeon Fate</span>
+      </a>
+      <nav class="nav-links">
+        <a href="#features" data-i18n="df-nav.features">功能</a>
+        <a href="#start" data-i18n="df-nav.start">快速开始</a>
+        <a href="#pricing" data-i18n="df-nav.pricing">定价</a>
+        <a href="#community" data-i18n="df-nav.community">社区</a>
+      </nav>
+      <div class="nav-actions">
+        <button id="langToggle" class="btn btn-sm" type="button">EN</button>
+        <a class="btn btn-sm btn-discord" href="https://discord.gg/SPQCAVA9R" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z"/></svg>
+          <span data-i18n="df-nav.discord">Discord</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero -->
+    <section class="hero">
+      <div class="wrap">
+        <span class="badge" data-i18n="df-hero.badge">免费下载 · 单机体验增强</span>
+        <div class="hero-dice" aria-hidden="true">
+          <img src="favicon.svg" alt="">
+        </div>
+        <h1 data-i18n="df-hero.title">地下城命运重掷</h1>
+        <div class="hero-latin" data-i18n="df-hero.latin">DUNGEON FATE</div>
+        <p class="hero-sub" data-i18n="df-hero.sub">《地下城竞技场》单机体验增强模组：弹窗中按 F5 重掷选项，关键字加品质过滤，一个安装器全搞定。</p>
+        <div class="hero-cta">
+          <a class="btn btn-primary" href="https://github.com/abevol/dungeon-fate-releases/releases/latest" data-i18n="df-hero.download">⬇ 下载安装器</a>
+          <a class="btn btn-discord" href="https://discord.gg/SPQCAVA9R" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z"/></svg>
+            <span data-i18n="df-hero.discord">加入 Discord</span>
+          </a>
+        </div>
+        <div class="hero-note" data-i18n="df-hero.note">适配 Steam 正版《地下城竞技场》（App 4246640）· 弹窗中按 F5 重掷</div>
+      </div>
+    </section>
+
+    <!-- Features -->
+    <section class="section features" id="features">
+      <div class="wrap">
+        <div class="sec-head">
+          <h2 data-i18n="df-features.title">功能</h2>
+          <p data-i18n="df-features.sub">每一项都为地下城之旅而生</p>
+        </div>
+        <div class="grid">
+          <article class="card">
+            <div class="card-icon c-green">🎲</div>
+            <h3 data-i18n="df-f1.title">F5 重掷</h3>
+            <p data-i18n="df-f1.desc">弹窗中按 F5，原样重放再掷一批同类型选项，弹窗类型不变。</p>
+          </article>
+          <article class="card">
+            <div class="card-icon c-purple">🔍</div>
+            <h3 data-i18n="df-f2.title">关键字加品质过滤</h3>
+            <p data-i18n="df-f2.desc">按名称与描述关键字过滤选项，品质另由单选筛选，多个关键字取交集。</p>
+          </article>
+          <article class="card">
+            <div class="card-icon c-dark">🃏</div>
+            <h3 data-i18n="df-f3.title">隐藏卡片</h3>
+            <p data-i18n="df-f3.desc">一键隐藏选项卡片，看清被弹窗挡住的战场，再一键恢复。</p>
+          </article>
+          <article class="card">
+            <div class="card-icon c-green">🏆</div>
+            <h3 data-i18n="df-f4.title">F8 排行榜</h3>
+            <p data-i18n="df-f4.desc">对局中按 F8 随时开关排行榜界面，不必回到大厅查看。</p>
+          </article>
+          <article class="card">
+            <div class="card-icon c-purple">⏩</div>
+            <h3 data-i18n="df-f5.title">战斗加速</h3>
+            <p data-i18n="df-f5.desc">x1/x2/x3/x5 四档战斗加速，记忆档位每回合自动恢复。</p>
+          </article>
+          <article class="card">
+            <div class="card-icon c-red">💎</div>
+            <h3 data-i18n="df-f6.title">水晶光标</h3>
+            <p data-i18n="df-f6.desc">白色水晶包裹宝石的定制光标，替换游戏默认指针。</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Quick start -->
+    <section class="section start" id="start">
+      <div class="wrap">
+        <div class="sec-head">
+          <h2 data-i18n="df-start.title">快速开始</h2>
+          <p data-i18n="df-start.sub">三步开玩</p>
+        </div>
+        <div class="steps">
+          <article class="step">
+            <div class="step-num">01</div>
+            <h3 data-i18n="df-s1.title">下载安装器</h3>
+            <p data-i18n="df-s1.desc">点击下方按钮获取最新安装包，无需手动解压覆盖。</p>
+          </article>
+          <article class="step">
+            <div class="step-num">02</div>
+            <h3 data-i18n="df-s2.title">安装到游戏</h3>
+            <p data-i18n="df-s2.desc">运行安装器并选择《地下城竞技场》游戏目录，自动完成安装。</p>
+          </article>
+          <article class="step">
+            <div class="step-num">03</div>
+            <h3 data-i18n="df-s3.title">启动游戏按 F5</h3>
+            <p data-i18n="df-s3.desc">进入游戏后打开任意选择弹窗，按 F5 即可重掷当前选项。</p>
+          </article>
+        </div>
+        <div class="start-cta">
+          <a class="btn btn-primary" href="https://github.com/abevol/dungeon-fate-releases/releases/latest" data-i18n="df-start.download">⬇ 下载安装器</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Pricing -->
+    <section class="section pricing" id="pricing">
+      <div class="wrap">
+        <div class="sec-head">
+          <h2 data-i18n="df-pricing.title">定价</h2>
+          <p data-i18n="df-pricing.sub">免费开玩，核心功能一次性买断</p>
+        </div>
+        <div class="price-grid">
+          <article class="card price-card">
+            <div class="card-icon c-dark">🎮</div>
+            <h3 data-i18n="df-pricing.free.name">免费版</h3>
+            <div class="price">$0</div>
+            <ul class="price-list">
+              <li data-i18n="df-pricing.free.li1">隐藏卡片</li>
+              <li data-i18n="df-pricing.free.li2">排行榜</li>
+              <li data-i18n="df-pricing.free.li3">战斗加速</li>
+              <li data-i18n="df-pricing.free.li4">水晶光标</li>
+            </ul>
+            <p class="price-note" data-i18n="df-pricing.free.note">免费</p>
+            <a class="btn btn-sm" href="https://github.com/abevol/dungeon-fate-releases/releases/latest" data-i18n="df-pricing.free.button">⬇ 下载安装器</a>
+          </article>
+          <article class="card price-card featured">
+            <div class="card-icon c-green">🎲</div>
+            <h3 data-i18n="df-pricing.paid.name">付费版</h3>
+            <div class="price">$19.9 <small data-i18n="df-pricing.paid.per">一次性买断</small></div>
+            <ul class="price-list">
+              <li data-i18n="df-pricing.paid.li1">F5 刷新</li>
+              <li data-i18n="df-pricing.paid.li2">关键字加品质过滤</li>
+            </ul>
+            <p class="price-note" data-i18n="df-pricing.paid.note">付费解锁以后续版本为准，当前版本功能不受限</p>
+            <a class="btn btn-sm btn-discord" href="https://www.creem.io/payment/prod_6KbwF1rui24Hv0DvHU53JT" target="_blank" rel="noopener" data-i18n="df-pricing.paid.button">购买付费版</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Community CTA -->
+    <section class="section cta" id="community">
+      <div class="wrap">
+        <div class="cta-card">
+          <h2 data-i18n="df-cta.title">加入社区</h2>
+          <p data-i18n="df-cta.desc">反馈问题、第一时间获取更新动态，与其他玩家交流玩法与模组建议。</p>
+          <a class="btn btn-discord" href="https://discord.gg/SPQCAVA9R" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z"/></svg>
+            <span data-i18n="df-cta.button">加入 Discord 频道</span>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap footer-inner">
+      <div class="footer-brand" data-i18n="df-footer.brand">Dungeon Fate</div>
+      <p class="footer-disclaimer" data-i18n="df-footer.disclaimer">需 Steam 正版《地下城竞技场》(App 4246640) 方可使用；本工具为独立软件，与游戏开发者无关联。</p>
+      <div class="footer-links">
+        <a href="mailto:abevol@pm.me" data-i18n="df-footer.support">客服支持：abevol@pm.me</a>
+        <a href="privacy.html" data-i18n="df-footer.privacy">隐私政策</a>
+        <a href="terms.html" data-i18n="df-footer.terms">服务条款</a>
+      </div>
+      <div class="footer-copy">© 2026 abevol · Dungeon Fate</div>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      var DICT = {
+        zh: {
+          "df-meta.title": "Dungeon Fate 地下城命运重掷 — 《地下城竞技场》体验增强模组",
+          "df-meta.desc": "《地下城竞技场》(Dungeon Brawl) 的体验增强模组：弹窗中按 F5 重掷选项，关键字加品质过滤，一个安装器全搞定。",
+          "df-brand": "Dungeon Fate",
+          "df-nav.features": "功能",
+          "df-nav.start": "快速开始",
+          "df-nav.pricing": "定价",
+          "df-nav.community": "社区",
+          "df-nav.discord": "Discord",
+          "df-hero.badge": "免费下载 · 单机体验增强",
+          "df-hero.title": "地下城命运重掷",
+          "df-hero.latin": "DUNGEON FATE",
+          "df-hero.sub": "《地下城竞技场》单机体验增强模组：弹窗中按 F5 重掷选项，关键字加品质过滤，一个安装器全搞定。",
+          "df-hero.download": "⬇ 下载安装器",
+          "df-hero.discord": "加入 Discord",
+          "df-hero.note": "适配 Steam 正版《地下城竞技场》（App 4246640）· 弹窗中按 F5 重掷",
+          "df-features.title": "功能",
+          "df-features.sub": "每一项都为地下城之旅而生",
+          "df-f1.title": "F5 重掷",
+          "df-f1.desc": "弹窗中按 F5，原样重放再掷一批同类型选项，弹窗类型不变。",
+          "df-f2.title": "关键字加品质过滤",
+          "df-f2.desc": "按名称与描述关键字过滤选项，品质另由单选筛选，多个关键字取交集。",
+          "df-f3.title": "隐藏卡片",
+          "df-f3.desc": "一键隐藏选项卡片，看清被弹窗挡住的战场，再一键恢复。",
+          "df-f4.title": "F8 排行榜",
+          "df-f4.desc": "对局中按 F8 随时开关排行榜界面，不必回到大厅查看。",
+          "df-f5.title": "战斗加速",
+          "df-f5.desc": "x1/x2/x3/x5 四档战斗加速，记忆档位每回合自动恢复。",
+          "df-f6.title": "水晶光标",
+          "df-f6.desc": "白色水晶包裹宝石的定制光标，替换游戏默认指针。",
+          "df-start.title": "快速开始",
+          "df-start.sub": "三步开玩",
+          "df-s1.title": "下载安装器",
+          "df-s1.desc": "点击下方按钮获取最新安装包，无需手动解压覆盖。",
+          "df-s2.title": "安装到游戏",
+          "df-s2.desc": "运行安装器并选择《地下城竞技场》游戏目录，自动完成安装。",
+          "df-s3.title": "启动游戏按 F5",
+          "df-s3.desc": "进入游戏后打开任意选择弹窗，按 F5 即可重掷当前选项。",
+          "df-start.download": "⬇ 下载安装器",
+          "df-pricing.title": "定价",
+          "df-pricing.sub": "免费开玩，核心功能一次性买断",
+          "df-pricing.free.name": "免费版",
+          "df-pricing.free.li1": "隐藏卡片",
+          "df-pricing.free.li2": "排行榜",
+          "df-pricing.free.li3": "战斗加速",
+          "df-pricing.free.li4": "水晶光标",
+          "df-pricing.free.note": "免费",
+          "df-pricing.free.button": "⬇ 下载安装器",
+          "df-pricing.paid.name": "付费版",
+          "df-pricing.paid.per": "一次性买断",
+          "df-pricing.paid.li1": "F5 刷新",
+          "df-pricing.paid.li2": "关键字加品质过滤",
+          "df-pricing.paid.note": "付费解锁以后续版本为准，当前版本功能不受限",
+          "df-pricing.paid.button": "购买付费版",
+          "df-cta.title": "加入社区",
+          "df-cta.desc": "反馈问题、第一时间获取更新动态，与其他玩家交流玩法与模组建议。",
+          "df-cta.button": "加入 Discord 频道",
+          "df-footer.brand": "Dungeon Fate",
+          "df-footer.disclaimer": "需 Steam 正版《地下城竞技场》(App 4246640) 方可使用；本工具为独立软件，与游戏开发者无关联。",
+          "df-footer.support": "客服支持：abevol@pm.me",
+          "df-footer.privacy": "隐私政策",
+          "df-footer.terms": "服务条款"
+        },
+        en: {
+          "df-meta.title": "Dungeon Fate — QoL Mod for Dungeon Brawl",
+          "df-meta.desc": "A quality-of-life mod for Dungeon Brawl: press F5 in popups to reroll options, keyword plus quality filtering — all in one installer.",
+          "df-brand": "Dungeon Fate",
+          "df-nav.features": "Features",
+          "df-nav.start": "Get Started",
+          "df-nav.pricing": "Pricing",
+          "df-nav.community": "Community",
+          "df-nav.discord": "Discord",
+          "df-hero.badge": "Free Download · Single-player QoL Mod",
+          "df-hero.title": "Dungeon Fate",
+          "df-hero.latin": "DUNGEON FATE",
+          "df-hero.sub": "A QoL mod for Dungeon Brawl: press F5 in selection popups to reroll, keyword plus quality filtering — all in one installer.",
+          "df-hero.download": "⬇ Download Installer",
+          "df-hero.discord": "Join Discord",
+          "df-hero.note": "Works with the Steam version of Dungeon Brawl (App 4246640) · Press F5 in popups to reroll",
+          "df-features.title": "Features",
+          "df-features.sub": "Everything here exists to make your dungeon runs better",
+          "df-f1.title": "Reroll",
+          "df-f1.desc": "Press F5 in a popup to replay and reroll a fresh batch of the same option type.",
+          "df-f2.title": "Keyword & Quality Filter",
+          "df-f2.desc": "Filter options by name and description keywords, quality via a separate picker; multiple keywords narrow down together.",
+          "df-f3.title": "Hide Cards",
+          "df-f3.desc": "Hide the option cards with one click to see the battlefield behind the popup, restore just as fast.",
+          "df-f4.title": "Rank Panel",
+          "df-f4.desc": "Toggle the leaderboard mid-match with F8 — no need to return to the lobby.",
+          "df-f5.title": "Battle Speed",
+          "df-f5.desc": "x1/x2/x3/x5 battle speeds, with the remembered tier reapplied each round.",
+          "df-f6.title": "Crystal Cursor",
+          "df-f6.desc": "A custom white-crystal-gem cursor replacing the default game pointer.",
+          "df-start.title": "Get Started",
+          "df-start.sub": "Three steps and you're in",
+          "df-s1.title": "Download the Installer",
+          "df-s1.desc": "Grab the latest installer with the button below — no manual file juggling.",
+          "df-s2.title": "Install",
+          "df-s2.desc": "Run the installer and pick your Dungeon Brawl game folder. Everything is set up automatically.",
+          "df-s3.title": "Play and Press F5",
+          "df-s3.desc": "Open any selection popup in-game and press F5 to reroll the current options.",
+          "df-start.download": "⬇ Download Installer",
+          "df-pricing.title": "Pricing",
+          "df-pricing.sub": "Free to play, core features with one-time purchase",
+          "df-pricing.free.name": "Free",
+          "df-pricing.free.li1": "Hide cards",
+          "df-pricing.free.li2": "Rank panel",
+          "df-pricing.free.li3": "Battle speed",
+          "df-pricing.free.li4": "Crystal cursor",
+          "df-pricing.free.note": "Free",
+          "df-pricing.free.button": "⬇ Download Installer",
+          "df-pricing.paid.name": "Paid",
+          "df-pricing.paid.per": "one-time",
+          "df-pricing.paid.li1": "F5 reroll",
+          "df-pricing.paid.li2": "Keyword & quality filter",
+          "df-pricing.paid.note": "Paid unlocks follow future versions; the current version has no locked features",
+          "df-pricing.paid.button": "Buy Paid",
+          "df-cta.title": "Join the Community",
+          "df-cta.desc": "Report issues, get update news first, and trade tips with other players.",
+          "df-cta.button": "Join the Discord",
+          "df-footer.brand": "Dungeon Fate",
+          "df-footer.disclaimer": "Requires a legitimate Steam copy of Dungeon Brawl (App 4246640). Independent software, not affiliated with the game developers.",
+          "df-footer.support": "Support: abevol@pm.me",
+          "df-footer.privacy": "Privacy",
+          "df-footer.terms": "Terms"
+        }
+      };
+
+      function detectLang() {
+        var saved = null;
+        try { saved = localStorage.getItem("df-lang"); } catch (e) {}
+        if (saved === "zh" || saved === "en") return saved;
+        var nav = (navigator.languages && navigator.languages[0]) || navigator.language || "";
+        return /^zh/i.test(nav) ? "zh" : "en";
+      }
+
+      function applyLang(lang) {
+        var dict = DICT[lang];
+        document.documentElement.lang = lang === "zh" ? "zh-CN" : "en";
+        document.title = dict["df-meta.title"];
+        var metaDesc = document.querySelector('meta[name="description"]');
+        if (metaDesc) metaDesc.setAttribute("content", dict["df-meta.desc"]);
+        var nodes = document.querySelectorAll("[data-i18n]");
+        for (var i = 0; i < nodes.length; i++) {
+          var key = nodes[i].getAttribute("data-i18n");
+          if (dict[key] !== undefined) nodes[i].textContent = dict[key];
+        }
+        var toggle = document.getElementById("langToggle");
+        toggle.textContent = lang === "zh" ? "EN" : "中文";
+        toggle.setAttribute("aria-label", lang === "zh" ? "Switch to English" : "切换到中文");
+      }
+
+      var current = detectLang();
+      applyLang(current);
+
+      document.getElementById("langToggle").addEventListener("click", function () {
+        current = current === "zh" ? "en" : "zh";
+        try { localStorage.setItem("df-lang", current); } catch (e) {}
+        applyLang(current);
+      });
+    })();
+  </script>
+</body>
+</html>

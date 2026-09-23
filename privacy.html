@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>隐私政策 / Privacy — Dungeon Fate</title>
+  <meta name="description" content="Dungeon Fate 隐私政策：本页不收集任何数据。">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <style>
+    :root {
+      --bg: #0B0E17;
+      --panel: #141827;
+      --ink: #E8EAF2;
+      --accent: #7CFC6A;
+      --accent2: #B388FF;
+      --danger: #FF5470;
+      --muted: #9AA0B5;
+      --border: 3px solid #000;
+      --shadow: 6px 6px 0 #000;
+      --title-font: Consolas, "Courier New", "Microsoft YaHei", monospace;
+      --font: "Microsoft YaHei", "PingFang SC", "Noto Sans SC", Consolas, system-ui, sans-serif;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: var(--font); color: var(--ink); background: var(--bg); line-height: 1.8; }
+    .wrap { max-width: 760px; margin: 0 auto; padding: 48px 24px; }
+    h1 { font-family: var(--title-font); color: var(--accent); margin-bottom: 24px; }
+    .card { background: var(--panel); border: var(--border); box-shadow: var(--shadow); padding: 28px; }
+    .card p { margin-bottom: 14px; }
+    .back { display: inline-block; margin-top: 24px; color: var(--accent); font-weight: 700; }
+    .lang { position: fixed; top: 16px; right: 16px; background: var(--panel); color: var(--ink); border: var(--border); padding: 8px 16px; font: inherit; font-weight: 700; cursor: pointer; }
+  </style>
+</head>
+<body>
+  <button id="langToggle" class="lang" type="button">EN</button>
+  <div class="wrap">
+    <h1 data-i18n="df-privacy.title">隐私政策 / Privacy</h1>
+    <div class="card">
+      <p data-i18n="df-privacy.p1">本页面不收集任何个人数据，不使用 Cookie，也不嵌入第三方统计脚本。</p>
+      <p data-i18n="df-privacy.p2">Dungeon Fate 安装器仅访问 BepInEx 官方地址与 GitHub Release 公开地址下载所需文件，不上传任何本地信息。</p>
+      <p data-i18n="df-privacy.p3">如有隐私相关问题，请联系 abevol@pm.me。</p>
+    </div>
+    <a class="back" href="index.html" data-i18n="df-privacy.back">← 返回首页</a>
+  </div>
+  <script>
+    (function () {
+      var DICT = {
+        zh: {
+          "df-privacy.title": "隐私政策 / Privacy",
+          "df-privacy.p1": "本页面不收集任何个人数据，不使用 Cookie，也不嵌入第三方统计脚本。",
+          "df-privacy.p2": "Dungeon Fate 安装器仅访问 BepInEx 官方地址与 GitHub Release 公开地址下载所需文件，不上传任何本地信息。",
+          "df-privacy.p3": "如有隐私相关问题，请联系 abevol@pm.me。",
+          "df-privacy.back": "← 返回首页"
+        },
+        en: {
+          "df-privacy.title": "Privacy",
+          "df-privacy.p1": "This page collects no personal data, uses no cookies, and embeds no third-party analytics.",
+          "df-privacy.p2": "The Dungeon Fate installer only downloads files from the official BepInEx address and public GitHub Release URLs, and uploads nothing from your machine.",
+          "df-privacy.p3": "For privacy questions, contact abevol@pm.me.",
+          "df-privacy.back": "← Back to home"
+        }
+      };
+      function detectLang() {
+        var saved = null;
+        try { saved = localStorage.getItem("df-lang"); } catch (e) {}
+        if (saved === "zh" || saved === "en") return saved;
+        var nav = (navigator.languages && navigator.languages[0]) || navigator.language || "";
+        return /^zh/i.test(nav) ? "zh" : "en";
+      }
+      function applyLang(lang) {
+        var dict = DICT[lang];
+        document.documentElement.lang = lang === "zh" ? "zh-CN" : "en";
+        var nodes = document.querySelectorAll("[data-i18n]");
+        for (var i = 0; i < nodes.length; i++) {
+          var key = nodes[i].getAttribute("data-i18n");
+          if (dict[key] !== undefined) nodes[i].textContent = dict[key];
+        }
+        var toggle = document.getElementById("langToggle");
+        toggle.textContent = lang === "zh" ? "EN" : "中文";
+      }
+      var current = detectLang();
+      applyLang(current);
+      document.getElementById("langToggle").addEventListener("click", function () {
+        current = current === "zh" ? "en" : "zh";
+        try { localStorage.setItem("df-lang", current); } catch (e) {}
+        applyLang(current);
+      });
+    })();
+  </script>
+</body>
+</html>
