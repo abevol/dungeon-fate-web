@@ -276,7 +276,7 @@
     .faq-item h3 { font-size: 1.05rem; margin-bottom: 6px; }
     .faq-item p { font-size: .93rem; color: var(--muted); }
 
-    /* ===== 定价 ===== */
+    /* ===== 捐助 ===== */
     .price-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; max-width: 880px; margin: 0 auto; }
     .price-card { display: flex; flex-direction: column; background: var(--panel); border: 1px solid var(--line-soft); border-radius: var(--r-lg); padding: 36px 34px; }
     .price-card.featured { border-color: rgba(217, 168, 69, .55); background: linear-gradient(180deg, rgba(217, 168, 69, .09), var(--panel) 55%); box-shadow: var(--shadow-sm); }
@@ -364,7 +364,7 @@
       <nav class="nav-links" aria-label="主导航">
         <a href="#features" data-i18n="df-nav.features">功能</a>
         <a href="#start" data-i18n="df-nav.start">快速开始</a>
-        <a href="#pricing" data-i18n="df-nav.pricing">定价</a>
+        <a href="#donate" data-i18n="df-nav.donate">捐助</a>
         <a href="#community" data-i18n="df-nav.community">社区</a>
       </nav>
       <div class="nav-actions">
@@ -583,38 +583,38 @@
       </div>
     </section>
 
-    <!-- Pricing -->
-    <section class="section" id="pricing">
+    <!-- Donate -->
+    <section class="section" id="donate">
       <div class="wrap">
         <div class="sec-head center rv">
-          <div class="sec-eyebrow" data-i18n="df-pricing.eyebrow">定价</div>
-          <h2 data-i18n="df-pricing.title">免费开玩</h2>
-          <p data-i18n="df-pricing.sub">当前版本全部功能免费，核心功能未来一次性买断。</p>
+          <div class="sec-eyebrow" data-i18n="df-donate.eyebrow">捐助</div>
+          <h2 data-i18n="df-donate.title">请作者喝杯咖啡</h2>
+          <p data-i18n="df-donate.sub">模组完全免费。喜欢它的话，欢迎自愿捐助支持后续更新。</p>
         </div>
         <div class="price-grid">
           <article class="price-card featured rv">
-            <span class="price-tag" data-i18n="df-pricing.free.tag">当前推荐</span>
-            <h3 data-i18n="df-pricing.free.name">免费版</h3>
+            <span class="price-tag" data-i18n="df-donate.free.tag">免费使用</span>
+            <h3 data-i18n="df-donate.free.name">全部功能</h3>
             <div class="price">$0</div>
             <ul class="price-list">
-              <li data-i18n="df-pricing.free.li1">隐藏卡片</li>
-              <li data-i18n="df-pricing.free.li2">游戏内排行榜</li>
-              <li data-i18n="df-pricing.free.li3">战斗加速</li>
-              <li data-i18n="df-pricing.free.li4">水晶光标</li>
+              <li data-i18n="df-donate.free.li1">无限重掷</li>
+              <li data-i18n="df-donate.free.li2">游戏内排行榜</li>
+              <li data-i18n="df-donate.free.li3">战斗加速</li>
+              <li data-i18n="df-donate.free.li4">水晶光标</li>
             </ul>
-            <p class="price-note" data-i18n="df-pricing.free.note">免费</p>
-            <a class="btn btn-primary" href="https://github.com/abevol/dungeon-fate-releases/releases/latest" data-i18n="df-pricing.free.button">⬇ 下载安装器</a>
+            <p class="price-note" data-i18n="df-donate.free.note">下载即用，无需付费</p>
+            <a class="btn btn-primary" href="https://github.com/abevol/dungeon-fate-releases/releases/latest" data-i18n="df-donate.free.button">⬇ 下载安装器</a>
           </article>
           <article class="price-card rv rv-d1">
-            <span class="price-tag muted" data-i18n="df-pricing.paid.tag">后续版本</span>
-            <h3 data-i18n="df-pricing.paid.name">付费版</h3>
-            <div class="price">$19.9 <small data-i18n="df-pricing.paid.per">一次性买断</small></div>
+            <span class="price-tag muted" data-i18n="df-donate.donor.tag">自愿捐助</span>
+            <h3 data-i18n="df-donate.donor.name">捐助支持</h3>
+            <div class="price"><small data-i18n="df-donate.donor.per">金额随意</small></div>
             <ul class="price-list">
-              <li data-i18n="df-pricing.paid.li1">F5 刷新</li>
-              <li data-i18n="df-pricing.paid.li2">关键字加品质过滤</li>
+              <li data-i18n="df-donate.donor.li1">支持后续更新</li>
+              <li data-i18n="df-donate.donor.li2">捐助不解锁任何功能</li>
             </ul>
-            <p class="price-note" data-i18n="df-pricing.paid.note">付费解锁以后续版本为准，当前版本功能不受限</p>
-            <a class="btn" href="https://www.creem.io/payment/prod_6KbwF1rui24Hv0DvHU53JT" target="_blank" rel="noopener" data-i18n="df-pricing.paid.button">购买付费版</a>
+            <p class="price-note" data-i18n="df-donate.donor.note">纯属自愿，不捐助也能用全部功能</p>
+            <a class="btn" href="#DONATE_URL#" data-i18n="df-donate.donor.button">捐助作者</a>
           </article>
         </div>
       </div>
@@ -660,7 +660,7 @@
           "df-brand": "Dungeon Fate",
           "df-nav.features": "功能",
           "df-nav.start": "快速开始",
-          "df-nav.pricing": "定价",
+            "df-nav.donate": "捐助",
           "df-nav.community": "社区",
           "df-nav.discord": "Discord",
           "df-hero.badge": "免费下载 · 单机体验增强",
@@ -737,24 +737,24 @@
           "df-faq.a3": "公平。开启后本局将主动禁止排行榜挑战、结算不再上传成绩，同时关闭反作弊检测以防误报——与游戏内狂欢模式的原生逻辑一致，绝不挤占他人榜单。只开排行榜、加速、光标等生活质量功能则不受影响。",
           "df-faq.q4": "游戏更新后模组失效怎么办？",
           "df-faq.a4": "重新运行安装器，它会自动检测新版本并一键更新，无需卸载重装，也不用再找游戏目录。",
-          "df-pricing.eyebrow": "定价",
-          "df-pricing.title": "免费开玩",
-          "df-pricing.sub": "当前版本全部功能免费，核心功能未来一次性买断。",
-          "df-pricing.free.tag": "当前推荐",
-          "df-pricing.free.name": "免费版",
-          "df-pricing.free.li1": "隐藏卡片",
-          "df-pricing.free.li2": "游戏内排行榜",
-          "df-pricing.free.li3": "战斗加速",
-          "df-pricing.free.li4": "水晶光标",
-          "df-pricing.free.note": "免费",
-          "df-pricing.free.button": "⬇ 下载安装器",
-          "df-pricing.paid.tag": "后续版本",
-          "df-pricing.paid.name": "付费版",
-          "df-pricing.paid.per": "一次性买断",
-          "df-pricing.paid.li1": "F5 刷新",
-          "df-pricing.paid.li2": "关键字加品质过滤",
-          "df-pricing.paid.note": "付费解锁以后续版本为准，当前版本功能不受限",
-          "df-pricing.paid.button": "购买付费版",
+            "df-donate.eyebrow": "捐助",
+            "df-donate.title": "请作者喝杯咖啡",
+            "df-donate.sub": "模组完全免费。喜欢它的话，欢迎自愿捐助支持后续更新。",
+            "df-donate.free.tag": "免费使用",
+            "df-donate.free.name": "全部功能",
+            "df-donate.free.li1": "无限重掷",
+            "df-donate.free.li2": "游戏内排行榜",
+            "df-donate.free.li3": "战斗加速",
+            "df-donate.free.li4": "水晶光标",
+            "df-donate.free.note": "下载即用，无需付费",
+            "df-donate.free.button": "⬇ 下载安装器",
+            "df-donate.donor.tag": "自愿捐助",
+            "df-donate.donor.name": "捐助支持",
+            "df-donate.donor.per": "金额随意",
+            "df-donate.donor.li1": "支持后续更新",
+            "df-donate.donor.li2": "捐助不解锁任何功能",
+            "df-donate.donor.note": "纯属自愿，不捐助也能用全部功能",
+            "df-donate.donor.button": "捐助作者",
           "df-cta.title": "加入社区",
           "df-cta.desc": "反馈问题、第一时间获取更新动态，与其他玩家交流玩法与模组建议。",
           "df-cta.button": "加入 Discord 频道",
@@ -771,7 +771,7 @@
           "df-brand": "Dungeon Fate",
           "df-nav.features": "Features",
           "df-nav.start": "Get Started",
-          "df-nav.pricing": "Pricing",
+            "df-nav.donate": "Donate",
           "df-nav.community": "Community",
           "df-nav.discord": "Discord",
           "df-hero.badge": "Free Download · Single-player QoL Mod",
@@ -848,24 +848,24 @@
           "df-faq.a3": "Yes. The match voluntarily bans leaderboard challenges and skips score uploads, while anti-cheat detection is turned off to avoid false positives — the same native logic as carnival mode, never crowding others off the board. QoL-only features like leaderboard, speed, and cursor are unaffected.",
           "df-faq.q4": "What if a game update breaks the mod?",
           "df-faq.a4": "Just run the installer again — it detects the new version and updates in one click. No reinstall, no need to find the game folder.",
-          "df-pricing.eyebrow": "Pricing",
-          "df-pricing.title": "Free to play",
-          "df-pricing.sub": "Everything is free in the current version; core features move to a one-time purchase later.",
-          "df-pricing.free.tag": "Recommended now",
-          "df-pricing.free.name": "Free",
-          "df-pricing.free.li1": "Hide cards",
-          "df-pricing.free.li2": "In-game leaderboard",
-          "df-pricing.free.li3": "Battle speed",
-          "df-pricing.free.li4": "Crystal cursor",
-          "df-pricing.free.note": "Free",
-          "df-pricing.free.button": "⬇ Download Installer",
-          "df-pricing.paid.tag": "Later versions",
-          "df-pricing.paid.name": "Paid",
-          "df-pricing.paid.per": "one-time",
-          "df-pricing.paid.li1": "F5 reroll",
-          "df-pricing.paid.li2": "Keyword & quality filter",
-          "df-pricing.paid.note": "Paid unlocks follow future versions; the current version has no locked features",
-          "df-pricing.paid.button": "Buy Paid",
+            "df-donate.eyebrow": "Donate",
+            "df-donate.title": "Buy the author a coffee",
+            "df-donate.sub": "The mod is completely free. If you like it, donations are welcome to support future updates.",
+            "df-donate.free.tag": "Free to use",
+            "df-donate.free.name": "All features",
+            "df-donate.free.li1": "Infinite reroll",
+            "df-donate.free.li2": "In-game leaderboard",
+            "df-donate.free.li3": "Battle speed",
+            "df-donate.free.li4": "Crystal cursor",
+            "df-donate.free.note": "Download and use, no payment needed",
+            "df-donate.free.button": "⬇ Download Installer",
+            "df-donate.donor.tag": "Voluntary",
+            "df-donate.donor.name": "Donate",
+            "df-donate.donor.per": "Any amount",
+            "df-donate.donor.li1": "Support future updates",
+            "df-donate.donor.li2": "Donations unlock nothing",
+            "df-donate.donor.note": "Purely voluntary — everything works without donating",
+            "df-donate.donor.button": "Donate",
           "df-cta.title": "Join the Community",
           "df-cta.desc": "Report issues, get update news first, and trade tips with other players.",
           "df-cta.button": "Join the Discord",
@@ -948,7 +948,7 @@
             }
           }
         }, { rootMargin: "-40% 0px -55% 0px" });
-        ["features", "start", "pricing", "community"].forEach(function (id) {
+        ["features", "start", "donate", "community"].forEach(function (id) {
           var s = document.getElementById(id);
           if (s) nio.observe(s);
         });
