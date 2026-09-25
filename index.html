@@ -925,16 +925,17 @@
       // 年份
       document.getElementById("year").textContent = new Date().getFullYear();
 
-      // 下载直链解析：GitHub API 取最新 release 的安装包（第一个 .zip 资产，
-      // 与安装器 GetLatestMod 同口径），套 ghproxy.net 加速后替换下载按钮链接；
+      // 下载直链解析：GitHub API 取最新 release 的安装器（DungeonFate-Setup.exe，
+      // 即第一个 .exe 资产——按钮语义是「下载安装器」，zip 是安装器内部更新模组用的，
+      // 两者口径不同），套 ghproxy.net 加速后替换下载按钮链接；
       // 任何一步失败都静默保留初始链接（releases 列表页），不影响页面可用。
       var GH_API = "https://api.github.com/repos/abevol/dungeon-fate-releases/releases/latest";
       var GH_PROXY = "https://ghproxy.net/";
-      function applyDownloadLinks(zipUrl) {
+      function applyDownloadLinks(exeUrl) {
         var btns = document.querySelectorAll("a.btn.js-dl");
-        for (var i = 0; i < btns.length; i++) btns[i].href = GH_PROXY + zipUrl;
+        for (var i = 0; i < btns.length; i++) btns[i].href = GH_PROXY + exeUrl;
         var alt = document.getElementById("dlAlt");
-        if (alt) alt.href = zipUrl;
+        if (alt) alt.href = exeUrl;
       }
       try {
         fetch(GH_API, { headers: { Accept: "application/vnd.github+json" } })
@@ -943,7 +944,7 @@
             if (!rel || !rel.assets) return;
             for (var i = 0; i < rel.assets.length; i++) {
               var u = rel.assets[i] && rel.assets[i].browser_download_url;
-              if (typeof u !== "string" || u.slice(-4).toLowerCase() !== ".zip") continue;
+              if (typeof u !== "string" || u.slice(-4).toLowerCase() !== ".exe") continue;
               var parsed;
               try { parsed = new URL(u); } catch (e) { return; }
               // 只采纳 https + github.com 的 releases/download 链接：
