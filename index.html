@@ -223,7 +223,7 @@
     .pill.q2 { color: #B9B4E4; background: rgba(142, 139, 199, .12); border-color: rgba(142, 139, 199, .4); }
     .pill.q3 { color: #EFC07A; background: rgba(217, 168, 69, .12); border-color: rgba(217, 168, 69, .45); }
     .pill.q4 { color: #F0A8B1; background: rgba(224, 93, 107, .12); border-color: rgba(224, 93, 107, .42); }
-    .mini-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+    .mini-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
     .mini {
       background: var(--panel); border: 1px solid var(--line-soft);
       border-radius: var(--r-md); padding: 26px 24px;
@@ -239,9 +239,10 @@
     .no-gap { margin-bottom: 0; }
     .flush-top { padding-top: 0; }
     .price-tag.muted { color: var(--muted); border-color: var(--line); }
-    .mini h3 { font-size: 1.06rem; font-weight: 700; margin-bottom: 6px; }
-    .mini p { font-size: .9rem; color: var(--muted); }
-    .mini .k { margin-top: 12px; display: block; }
+.mini h3 { font-size: 1.06rem; font-weight: 700; margin-bottom: 6px; }
+.mini p { font-size: .9rem; color: var(--muted); }
+.mini-note { font-size: .78rem; color: var(--muted); opacity: .75; margin-top: 8px; }
+.mini .k { margin-top: 12px; display: block; }
 
     /* ===== 按键速查 ===== */
     .keys { background: var(--bg-2); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
@@ -319,7 +320,7 @@
     /* ===== 入场动效 ===== */
     .rv { opacity: 0; transform: translateY(22px); transition: opacity .7s ease, transform .7s cubic-bezier(.2, .7, .2, 1); }
     .rv.in { opacity: 1; transform: none; }
-    .rv-d1 { transition-delay: .08s; } .rv-d2 { transition-delay: .16s; } .rv-d3 { transition-delay: .24s; }
+    .rv-d1 { transition-delay: .08s; } .rv-d2 { transition-delay: .16s; } .rv-d3 { transition-delay: .24s; } .rv-d4 { transition-delay: .32s; } .rv-d5 { transition-delay: .4s; }
 
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
@@ -384,7 +385,7 @@
           <span class="eyebrow" data-i18n="df-hero.badge">免费下载 · 单机体验增强</span>
           <h1 data-i18n="df-hero.title">地下城命运<em>重掷</em></h1>
           <div class="hero-latin" data-i18n="df-hero.latin">DUNGEON FATE</div>
-          <p class="hero-sub" data-i18n="df-hero.sub">为《地下城竞技场》而生的单机体验增强模组——在任意选择弹窗中按 F5，重掷一批同类型选项，再以关键字与品质直达想要的构筑。</p>
+          <p class="hero-sub" data-i18n="df-hero.sub">为《地下城竞技场》而生的单机体验增强模组——无限重掷同类型选项、关键字加品质过滤、对局内排行榜、战斗加速、水晶光标，一装全有。</p>
           <div class="hero-cta">
             <a class="btn btn-primary" href="https://github.com/abevol/dungeon-fate-releases/releases/latest" data-i18n="df-hero.download">⬇ 下载安装器</a>
             <a class="btn btn-discord" href="https://discord.gg/SPQCAVA9R" target="_blank" rel="noopener">
@@ -395,7 +396,7 @@
           <div class="hero-note" data-i18n="df-hero.note">适配 Steam 正版《地下城竞技场》（App 4246640）· 当前版本全部功能免费</div>
           <div class="hero-stats">
             <div><div class="stat-num">48<span>＋</span></div><div class="stat-label" data-i18n="df-stat.1l">种选择弹窗全覆盖</div></div>
-            <div><div class="stat-num">6</div><div class="stat-label" data-i18n="df-stat.2l">项模组功能</div></div>
+            <div><div class="stat-num">7</div><div class="stat-label" data-i18n="df-stat.2l">项模组功能</div></div>
             <div><div class="stat-num">1</div><div class="stat-label" data-i18n="df-stat.3l">个安装器全搞定</div></div>
           </div>
         </div>
@@ -430,7 +431,7 @@
         <span><b>F5</b>&nbsp;&nbsp;<i data-i18n="df-tick.1">重掷当前选项</i></span>
         <span><i data-i18n="df-tick.2">关键字加品质过滤</i></span>
         <span><b>F8</b>&nbsp;&nbsp;<i data-i18n="df-tick.3">对局内排行榜</i></span>
-        <span><i data-i18n="df-tick.4">四档战斗加速</i></span>
+        <span><i data-i18n="df-tick.4">五档战斗加速</i></span>
         <span><i data-i18n="df-tick.5">水晶定制光标</i></span>
         <span><i data-i18n="df-tick.6">一键安装更新</i></span>
       </div>
@@ -447,8 +448,8 @@
         <div class="spot-grid">
           <article class="spot rv">
             <div class="spot-flag" data-i18n="df-spot1.flag">招牌 · SIGNATURE</div>
-            <h3 data-i18n="df-f1.title">F5 重掷</h3>
-            <p data-i18n="df-f1.desc">弹窗中按 F5，原样重放再掷一批同类型选项——技能仍是技能，遗物仍是遗物，弹窗类型绝不串味。</p>
+            <h3 data-i18n="df-f1.title">无限重掷</h3>
+            <p data-i18n="df-f1.desc">弹窗中按 F5，原样重放再掷一批同类型选项——技能仍是技能，遗物仍是遗物，弹窗类型绝不串味。开启后将禁止排行榜挑战，结算不再上传成绩。</p>
             <div class="spot-steps">
               <span class="st" data-i18n="df-spot1.s1">打开任意选择弹窗</span><span class="arr">→</span>
               <span class="st"><kbd>F5</kbd></span><span class="arr">→</span>
@@ -483,13 +484,24 @@
           <article class="mini rv rv-d2">
             <div class="mini-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h9M12 7l5 5-5 5"/><path d="M17 5v14" opacity=".45"/></svg></div>
             <h3 data-i18n="df-f5.title">战斗加速</h3>
-            <p data-i18n="df-f5.desc">x1/x2/x3/x5 四档战斗加速，记忆档位每回合自动恢复。</p>
-            <span class="k"><kbd>x1</kbd> <kbd>x2</kbd> <kbd>x3</kbd> <kbd>x5</kbd></span>
+            <p data-i18n="df-f5.desc">x0.5/x1/x2/x3/x5 五档战斗加速，记忆档位每回合自动恢复。</p>
+            <span class="k"><kbd>x0.5</kbd> <kbd>x1</kbd> <kbd>x2</kbd> <kbd>x3</kbd> <kbd>x5</kbd></span>
           </article>
           <article class="mini rv rv-d3">
             <div class="mini-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 3l7 5-7 13L4 11z"/><path d="M4 11h12M9 3l3 8 4-3z"/></svg></div>
             <h3 data-i18n="df-f6.title">水晶光标</h3>
             <p data-i18n="df-f6.desc">白色水晶包裹宝石的定制光标，替换游戏默认指针。</p>
+          </article>
+          <article class="mini rv rv-d4">
+            <div class="mini-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5v5M12 16h.01"/></svg></div>
+            <h3 data-i18n="df-f7.title">禁榜状态</h3>
+            <p data-i18n="df-f7.desc">左下角两行红字实时显示禁榜与反作弊状态，仅禁榜时出现。</p>
+            <p class="mini-note" data-i18n="df-f7.note">禁榜即禁止排行榜挑战：开启无限重掷的对局不再上传成绩。</p>
+          </article>
+          <article class="mini rv rv-d5">
+            <div class="mini-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h16M4 12h16M4 16h10"/><path d="M17 16l2 2 3-4"/></svg></div>
+            <h3 data-i18n="df-f8.title">安装器配开关</h3>
+            <p data-i18n="df-f8.desc">安装器内直接开关 6 项模组功能，控制台选项也已移入其中。</p>
           </article>
         </div>
       </div>
@@ -504,7 +516,7 @@
           <p data-i18n="df-keys.sub">其余一切都交给安装器，游戏里无需任何设置。</p>
         </div>
         <div class="rv rv-d1">
-          <div class="key-row"><kbd>F5</kbd><p data-i18n="df-keys.k1"><b>重掷</b>当前选择弹窗的选项</p></div>
+          <div class="key-row"><kbd>F5</kbd><p data-i18n="df-keys.k1"><b>无限重掷</b>当前选择弹窗的选项（将禁止排行榜挑战）</p></div>
           <div class="key-row"><kbd>F8</kbd><p data-i18n="df-keys.k2"><b>开关</b>对局中的排行榜面板</p></div>
           <div class="key-row"><kbd>Enter</kbd><p data-i18n="df-keys.k3">在过滤面板中<b>确认刷新</b>，等价于点刷新</p></div>
           <p class="keys-note" data-i18n="df-keys.note">客机按 F5 只会收到提示，不会干扰房主与其他玩家。</p>
@@ -561,7 +573,11 @@
           </article>
           <article class="faq-item rv rv-d2">
             <div class="faq-idx">03</div>
-            <div><h3 data-i18n="df-faq.q3">游戏更新后模组失效怎么办？</h3><p data-i18n="df-faq.a3">重新运行安装器，它会自动检测新版本并一键更新，无需卸载重装，也不用再找游戏目录。</p></div>
+            <div><h3 data-i18n="df-faq.q3">无限重掷公平吗？</h3><p data-i18n="df-faq.a3">公平。开启后本局将主动禁止排行榜挑战、结算不再上传成绩，同时关闭反作弊检测以防误报——与游戏内狂欢模式的原生逻辑一致，绝不挤占他人榜单。只开排行榜、加速、光标等生活质量功能则不受影响。</p></div>
+          </article>
+          <article class="faq-item rv rv-d3">
+            <div class="faq-idx">04</div>
+            <div><h3 data-i18n="df-faq.q4">游戏更新后模组失效怎么办？</h3><p data-i18n="df-faq.a4">重新运行安装器，它会自动检测新版本并一键更新，无需卸载重装，也不用再找游戏目录。</p></div>
           </article>
         </div>
       </div>
@@ -582,7 +598,7 @@
             <div class="price">$0</div>
             <ul class="price-list">
               <li data-i18n="df-pricing.free.li1">隐藏卡片</li>
-              <li data-i18n="df-pricing.free.li2">排行榜</li>
+              <li data-i18n="df-pricing.free.li2">游戏内排行榜</li>
               <li data-i18n="df-pricing.free.li3">战斗加速</li>
               <li data-i18n="df-pricing.free.li4">水晶光标</li>
             </ul>
@@ -650,7 +666,7 @@
           "df-hero.badge": "免费下载 · 单机体验增强",
           "df-hero.title": "地下城命运<em>重掷</em>",
           "df-hero.latin": "DUNGEON FATE",
-          "df-hero.sub": "为《地下城竞技场》而生的单机体验增强模组——在任意选择弹窗中按 F5，重掷一批同类型选项，再以关键字与品质直达想要的构筑。",
+          "df-hero.sub": "为《地下城竞技场》而生的单机体验增强模组——无限重掷同类型选项、关键字加品质过滤、对局内排行榜、战斗加速、水晶光标，一装全有。",
           "df-hero.download": "⬇ 下载安装器",
           "df-hero.discord": "加入 Discord",
           "df-hero.note": "适配 Steam 正版《地下城竞技场》（App 4246640）· 当前版本全部功能免费",
@@ -662,7 +678,7 @@
           "df-tick.1": "重掷当前选项",
           "df-tick.2": "关键字加品质过滤",
           "df-tick.3": "对局内排行榜",
-          "df-tick.4": "四档战斗加速",
+          "df-tick.4": "五档战斗加速",
           "df-tick.5": "水晶定制光标",
           "df-tick.6": "一键安装更新",
           "df-features.eyebrow": "核心功能",
@@ -670,8 +686,8 @@
           "df-features.sub": "不改存档，不碰网络，只在选择弹窗出现的那一刻给你更多命运。",
           "df-spot1.flag": "招牌 · SIGNATURE",
           "df-spot2.flag": "直达 · PRECISION",
-          "df-f1.title": "F5 重掷",
-          "df-f1.desc": "弹窗中按 F5，原样重放再掷一批同类型选项——技能仍是技能，遗物仍是遗物，弹窗类型绝不串味。",
+          "df-f1.title": "无限重掷",
+          "df-f1.desc": "弹窗中按 F5，原样重放再掷一批同类型选项——技能仍是技能，遗物仍是遗物，弹窗类型绝不串味。开启后将禁止排行榜挑战，结算不再上传成绩。",
           "df-spot1.s1": "打开任意选择弹窗",
           "df-spot1.s2": "同类型新选项落定",
           "df-f2.title": "关键字加品质过滤",
@@ -686,13 +702,18 @@
           "df-f4.title": "F8 排行榜",
           "df-f4.desc": "对局中按 F8 随时开关排行榜界面，不必回到大厅查看。",
           "df-f5.title": "战斗加速",
-          "df-f5.desc": "x1/x2/x3/x5 四档战斗加速，记忆档位每回合自动恢复。",
+          "df-f5.desc": "x0.5/x1/x2/x3/x5 五档战斗加速，记忆档位每回合自动恢复。",
           "df-f6.title": "水晶光标",
           "df-f6.desc": "白色水晶包裹宝石的定制光标，替换游戏默认指针。",
+          "df-f7.title": "禁榜状态",
+          "df-f7.desc": "左下角两行红字实时显示禁榜与反作弊状态，仅禁榜时出现。",
+          "df-f7.note": "禁榜即禁止排行榜挑战：开启无限重掷的对局不再上传成绩。",
+          "df-f8.title": "安装器配开关",
+          "df-f8.desc": "安装器内直接开关 6 项模组功能，控制台选项也已移入其中。",
           "df-keys.eyebrow": "按键速查",
           "df-keys.title": "记住两个键就够了",
           "df-keys.sub": "其余一切都交给安装器，游戏里无需任何设置。",
-          "df-keys.k1": "<b>重掷</b>当前选择弹窗的选项",
+          "df-keys.k1": "<b>无限重掷</b>当前选择弹窗的选项（将禁止排行榜挑战）",
           "df-keys.k2": "<b>开关</b>对局中的排行榜面板",
           "df-keys.k3": "在过滤面板中<b>确认刷新</b>，等价于点刷新",
           "df-keys.note": "客机按 F5 只会收到提示，不会干扰房主与其他玩家。",
@@ -712,15 +733,17 @@
           "df-faq.a1": "主持游戏的房主可用；作为客机加入时按 F5 只会收到提示，不影响房主与其他玩家，不破坏对局。",
           "df-faq.q2": "重掷会改变弹窗类型吗？",
           "df-faq.a2": "不会。重掷是原样重放打开当前弹窗的那次调用，技能仍是技能，遗物仍是遗物，只是换一批同类型选项。",
-          "df-faq.q3": "游戏更新后模组失效怎么办？",
-          "df-faq.a3": "重新运行安装器，它会自动检测新版本并一键更新，无需卸载重装，也不用再找游戏目录。",
+          "df-faq.q3": "无限重掷公平吗？",
+          "df-faq.a3": "公平。开启后本局将主动禁止排行榜挑战、结算不再上传成绩，同时关闭反作弊检测以防误报——与游戏内狂欢模式的原生逻辑一致，绝不挤占他人榜单。只开排行榜、加速、光标等生活质量功能则不受影响。",
+          "df-faq.q4": "游戏更新后模组失效怎么办？",
+          "df-faq.a4": "重新运行安装器，它会自动检测新版本并一键更新，无需卸载重装，也不用再找游戏目录。",
           "df-pricing.eyebrow": "定价",
           "df-pricing.title": "免费开玩",
           "df-pricing.sub": "当前版本全部功能免费，核心功能未来一次性买断。",
           "df-pricing.free.tag": "当前推荐",
           "df-pricing.free.name": "免费版",
           "df-pricing.free.li1": "隐藏卡片",
-          "df-pricing.free.li2": "排行榜",
+          "df-pricing.free.li2": "游戏内排行榜",
           "df-pricing.free.li3": "战斗加速",
           "df-pricing.free.li4": "水晶光标",
           "df-pricing.free.note": "免费",
@@ -754,7 +777,7 @@
           "df-hero.badge": "Free Download · Single-player QoL Mod",
           "df-hero.title": "Reroll Your <em>Dungeon Fate</em>",
           "df-hero.latin": "DUNGEON FATE",
-          "df-hero.sub": "A QoL mod built for Dungeon Brawl — press F5 in any selection popup to reroll a fresh batch of the same option type, then narrow it down with keyword and quality filters.",
+          "df-hero.sub": "A QoL mod built for Dungeon Brawl — infinite rerolls, keyword and quality filters, in-match leaderboard, battle speed, and crystal cursor, all in one install.",
           "df-hero.download": "⬇ Download Installer",
           "df-hero.discord": "Join Discord",
           "df-hero.note": "Works with the Steam version of Dungeon Brawl (App 4246640) · Every feature is free in the current version",
@@ -766,7 +789,7 @@
           "df-tick.1": "Reroll current options",
           "df-tick.2": "Keyword + quality filters",
           "df-tick.3": "Mid-match leaderboard",
-          "df-tick.4": "Four battle speeds",
+          "df-tick.4": "Five battle speeds",
           "df-tick.5": "Crystal custom cursor",
           "df-tick.6": "One-click install & update",
           "df-features.eyebrow": "Features",
@@ -774,8 +797,8 @@
           "df-features.sub": "No save edits, no network tricks — just more fate at the moment a popup appears.",
           "df-spot1.flag": "SIGNATURE",
           "df-spot2.flag": "PRECISION",
-          "df-f1.title": "Reroll",
-          "df-f1.desc": "Press F5 in a popup to replay and reroll a fresh batch of the same option type — skills stay skills, relics stay relics.",
+          "df-f1.title": "Infinite Reroll",
+          "df-f1.desc": "Press F5 in a popup to replay and reroll a fresh batch of the same option type — skills stay skills, relics stay relics. Enabling bans leaderboard challenges; scores are no longer uploaded at settlement.",
           "df-spot1.s1": "Open any selection popup",
           "df-spot1.s2": "Fresh options of the same type",
           "df-f2.title": "Keyword & Quality Filter",
@@ -790,13 +813,18 @@
           "df-f4.title": "Rank Panel",
           "df-f4.desc": "Toggle the leaderboard mid-match with F8 — no need to return to the lobby.",
           "df-f5.title": "Battle Speed",
-          "df-f5.desc": "x1/x2/x3/x5 battle speeds, with the remembered tier reapplied each round.",
+          "df-f5.desc": "x0.5/x1/x2/x3/x5 battle speeds, with the remembered tier reapplied each round.",
           "df-f6.title": "Crystal Cursor",
           "df-f6.desc": "A custom white-crystal-gem cursor replacing the default game pointer.",
+          "df-f7.title": "Ban Status",
+          "df-f7.desc": "Two red lines at the bottom-left show ban and anti-cheat status live, only when banned.",
+          "df-f7.note": "Banned means no leaderboard challenges: matches with infinite reroll enabled no longer upload scores.",
+          "df-f8.title": "Installer Switches",
+          "df-f8.desc": "Toggle all 6 mod features right in the installer; the console option lives there too.",
           "df-keys.eyebrow": "Shortcuts",
           "df-keys.title": "Two keys are all you need",
           "df-keys.sub": "The installer handles everything else — nothing to configure in-game.",
-          "df-keys.k1": "<b>Reroll</b> the current selection popup",
+          "df-keys.k1": "<b>Infinite reroll</b> the current selection popup (bans leaderboard challenges)",
           "df-keys.k2": "<b>Toggle</b> the mid-match leaderboard",
           "df-keys.k3": "<b>Confirm & refresh</b> from the filter panel, same as clicking refresh",
           "df-keys.note": "Pressing F5 as a client only shows a notice — hosts and other players are never disturbed.",
@@ -816,15 +844,17 @@
           "df-faq.a1": "Yes for the host. Joining as a client and pressing F5 only shows a notice — other players and the match are unaffected.",
           "df-faq.q2": "Can rerolling change the popup type?",
           "df-faq.a2": "Never. A reroll replays the exact call that opened the current popup, so you only get a fresh batch of the same option type.",
-          "df-faq.q3": "What if a game update breaks the mod?",
-          "df-faq.a3": "Just run the installer again — it detects the new version and updates in one click. No reinstall, no need to find the game folder.",
+          "df-faq.q3": "Is infinite reroll fair?",
+          "df-faq.a3": "Yes. The match voluntarily bans leaderboard challenges and skips score uploads, while anti-cheat detection is turned off to avoid false positives — the same native logic as carnival mode, never crowding others off the board. QoL-only features like leaderboard, speed, and cursor are unaffected.",
+          "df-faq.q4": "What if a game update breaks the mod?",
+          "df-faq.a4": "Just run the installer again — it detects the new version and updates in one click. No reinstall, no need to find the game folder.",
           "df-pricing.eyebrow": "Pricing",
           "df-pricing.title": "Free to play",
           "df-pricing.sub": "Everything is free in the current version; core features move to a one-time purchase later.",
           "df-pricing.free.tag": "Recommended now",
           "df-pricing.free.name": "Free",
           "df-pricing.free.li1": "Hide cards",
-          "df-pricing.free.li2": "Rank panel",
+          "df-pricing.free.li2": "In-game leaderboard",
           "df-pricing.free.li3": "Battle speed",
           "df-pricing.free.li4": "Crystal cursor",
           "df-pricing.free.note": "Free",
