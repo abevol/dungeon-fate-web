@@ -265,6 +265,9 @@
     }
     .step h3 { font-size: 1.12rem; font-weight: 700; margin-bottom: 8px; }
     .step p { font-size: .94rem; color: var(--muted); }
+    .dl-alt { margin-top: 10px; font-size: .85rem; }
+    .dl-alt a { color: var(--faint); text-decoration: underline; text-underline-offset: 3px; }
+    .dl-alt a:hover { color: var(--muted); }
     .start-cta { text-align: center; margin-top: 48px; }
     .start-cta .btn { font-size: 1.08rem; padding: 16px 40px; }
 
@@ -387,7 +390,7 @@
           <div class="hero-latin" data-i18n="df-hero.latin">DUNGEON FATE</div>
           <p class="hero-sub" data-i18n="df-hero.sub">为《地下城竞技场》而生的单机体验增强模组——无限重掷同类型选项、关键字加品质过滤、对局内排行榜、战斗加速、水晶光标，一装全有。</p>
           <div class="hero-cta">
-            <a class="btn btn-primary" href="https://github.com/abevol/dungeon-fate-releases/releases/latest" data-i18n="df-hero.download">⬇ 下载安装器</a>
+            <a class="btn btn-primary js-dl" href="https://github.com/abevol/dungeon-fate-releases/releases/latest" data-i18n="df-hero.download">⬇ 下载安装器</a>
             <a class="btn btn-discord" href="https://discord.gg/SPQCAVA9R" target="_blank" rel="noopener">
               <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z"/></svg>
               <span data-i18n="df-hero.discord">加入 Discord</span>
@@ -537,6 +540,7 @@
             <div class="step-num">01</div>
             <h3 data-i18n="df-s1.title">下载安装器</h3>
             <p data-i18n="df-s1.desc">点击下方按钮获取最新安装包，只有一个 exe 文件。</p>
+            <p class="dl-alt"><a id="dlAlt" href="https://github.com/abevol/dungeon-fate-releases/releases/latest" data-i18n="df-s1.alt">GitHub 直链</a></p>
           </article>
           <article class="step rv rv-d1">
             <div class="step-num">02</div>
@@ -550,7 +554,7 @@
           </article>
         </div>
         <div class="start-cta rv">
-          <a class="btn btn-primary" href="https://github.com/abevol/dungeon-fate-releases/releases/latest" data-i18n="df-start.download">⬇ 下载安装器</a>
+          <a class="btn btn-primary js-dl" href="https://github.com/abevol/dungeon-fate-releases/releases/latest" data-i18n="df-start.download">⬇ 下载安装器</a>
         </div>
       </div>
     </section>
@@ -603,7 +607,7 @@
               <li data-i18n="df-donate.free.li4">水晶光标</li>
             </ul>
             <p class="price-note" data-i18n="df-donate.free.note">下载即用，无需付费</p>
-            <a class="btn btn-primary" href="https://github.com/abevol/dungeon-fate-releases/releases/latest" data-i18n="df-donate.free.button">⬇ 下载安装器</a>
+            <a class="btn btn-primary js-dl" href="https://github.com/abevol/dungeon-fate-releases/releases/latest" data-i18n="df-donate.free.button">⬇ 下载安装器</a>
           </article>
           <article class="price-card rv rv-d1">
             <span class="price-tag muted" data-i18n="df-donate.donor.tag">自愿捐助</span>
@@ -722,6 +726,7 @@
           "df-start.sub": "无需手动解压覆盖，安装器替你找游戏、装框架、装模组。",
           "df-s1.title": "下载安装器",
           "df-s1.desc": "点击下方按钮获取最新安装包，只有一个 exe 文件。",
+          "df-s1.alt": "加速直连不可用？走 GitHub 直链",
           "df-s2.title": "安装到游戏",
           "df-s2.desc": "运行安装器，它会自动定位 Steam 游戏目录并完成安装。",
           "df-s3.title": "启动游戏按 F5",
@@ -833,6 +838,7 @@
           "df-start.sub": "No manual file juggling — the installer finds the game, sets up the framework, and installs the mod.",
           "df-s1.title": "Download the Installer",
           "df-s1.desc": "Grab the latest installer with the button below — a single exe file.",
+          "df-s1.alt": "Fast link not working? Use the direct GitHub link",
           "df-s2.title": "Install",
           "df-s2.desc": "Run the installer. It locates your Steam game folder automatically and finishes the setup.",
           "df-s3.title": "Play and Press F5",
@@ -918,6 +924,38 @@
 
       // 年份
       document.getElementById("year").textContent = new Date().getFullYear();
+
+      // 下载直链解析：GitHub API 取最新 release 的安装包（第一个 .zip 资产，
+      // 与安装器 GetLatestMod 同口径），套 ghproxy.net 加速后替换下载按钮链接；
+      // 任何一步失败都静默保留初始链接（releases 列表页），不影响页面可用。
+      var GH_API = "https://api.github.com/repos/abevol/dungeon-fate-releases/releases/latest";
+      var GH_PROXY = "https://ghproxy.net/";
+      function applyDownloadLinks(zipUrl) {
+        var btns = document.querySelectorAll("a.btn.js-dl");
+        for (var i = 0; i < btns.length; i++) btns[i].href = GH_PROXY + zipUrl;
+        var alt = document.getElementById("dlAlt");
+        if (alt) alt.href = zipUrl;
+      }
+      try {
+        fetch(GH_API, { headers: { Accept: "application/vnd.github+json" } })
+          .then(function (res) { return res.ok ? res.json() : null; })
+          .then(function (rel) {
+            if (!rel || !rel.assets) return;
+            for (var i = 0; i < rel.assets.length; i++) {
+              var u = rel.assets[i] && rel.assets[i].browser_download_url;
+              if (typeof u !== "string" || u.slice(-4).toLowerCase() !== ".zip") continue;
+              var parsed;
+              try { parsed = new URL(u); } catch (e) { return; }
+              // 只采纳 https + github.com 的 releases/download 链接：
+              // API 响应若被篡改，绝不把用户带去其他 host。
+              if (parsed.protocol !== "https:" || parsed.hostname !== "github.com") return;
+              if (!/^\/[^/]+\/[^/]+\/releases\/download\//i.test(parsed.pathname)) return;
+              applyDownloadLinks(u);
+              return;
+            }
+          })
+          .catch(function () { /* 降级：保持 releases 列表页链接 */ });
+      } catch (e) { /* 降级同上 */ }
 
       // 入场动效
       var reduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
