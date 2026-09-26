@@ -367,6 +367,7 @@
       <nav class="nav-links" aria-label="主导航">
         <a href="#features" data-i18n="df-nav.features">功能</a>
         <a href="#start" data-i18n="df-nav.start">快速开始</a>
+        <a href="#faq" data-i18n="df-nav.faq">常见问题</a>
         <a href="#donate" data-i18n="df-nav.donate">捐助</a>
         <a href="#community" data-i18n="df-nav.community">社区</a>
       </nav>
@@ -668,6 +669,7 @@
           "df-brand": "Dungeon Fate",
           "df-nav.features": "功能",
           "df-nav.start": "快速开始",
+            "df-nav.faq": "常见问题",
             "df-nav.donate": "捐助",
           "df-nav.community": "社区",
           "df-nav.discord": "Discord",
@@ -782,6 +784,7 @@
           "df-brand": "Dungeon Fate",
           "df-nav.features": "Features",
           "df-nav.start": "Get Started",
+            "df-nav.faq": "FAQ",
             "df-nav.donate": "Donate",
           "df-nav.community": "Community",
           "df-nav.discord": "Discord",
@@ -995,7 +998,7 @@
             }
           }
         }, { rootMargin: "-40% 0px -55% 0px" });
-        ["features", "start", "donate", "community"].forEach(function (id) {
+        ["features", "start", "faq", "donate", "community"].forEach(function (id) {
           var s = document.getElementById(id);
           if (s) nio.observe(s);
         });
